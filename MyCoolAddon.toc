@@ -1,0 +1,17 @@
+## Interface: 100207
+## Title: MyCoolAddon
+## Notes: A basic template for developing a new addon.
+## Author: YourName
+## Version: 1.0.0
+## SavedVariables: MyCoolAddonDB
+
+## Title-koKR: |cffFFFF00나의 멋진 애드온|r
+## Notes-koKR: 새로운 애드온 개발을 위한 기본 템플릿입니다.
+
+# 파일 로드 순서도 중요합니다.
+# 1. 현지화 텍스트 먼저 로드
+Locales.lua
+# 2. UI 프레임(XML) 로드
+Frames.xml
+# 3. 핵심 로직(Lua) 로드
+Core.lua

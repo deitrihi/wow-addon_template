@@ -1,0 +1,67 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- 슬래시(/) 명령어 처리를 위한 프레임 -->
+    <Frame name="MyCoolAddonSlashCommandHandler">
+        <Scripts>
+            <OnLoad>
+                -- /mca 와 /mycooladdon 명령어를 등록하고, MyCoolAddon.SlashCommandHandler 함수를 호출하도록 설정
+                SLASH_MYCOOLADDON1 = "/mycooladdon";
+                SLASH_MYCOOLADDON2 = "/mca";
+                SlashCmdList["MYCOOLADDON"] = MyCoolAddon.SlashCommandHandler;
+            </OnLoad>
+        </Scripts>
+    </Frame>
+
+    <!-- 애드온 메인 프레임 (창) -->
+    <Frame name="MyCoolAddonFrame" parent="UIParent" movable="true" enableMouse="true" hidden="true">
+        <Size x="250" y="150"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Backdrop bgFile="Interface/DialogFrame/UI-DialogBox-Background" edgeFile="Interface/DialogFrame/UI-DialogBox-Border" tile="true">
+            <EdgeSize val="16"/>
+            <TileSize val="32"/>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+        <Layers>
+            <!-- 창 제목 -->
+            <Layer level="ARTWORK">
+                <FontString name="$parentTitle" inherits="GameFontNormal" text="MyCoolAddon">
+                    <Anchors>
+                        <Anchor point="TOP" y="-10"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- 테스트 버튼 -->
+            <Button name="$parentButton" inherits="UIPanelButtonTemplate">
+                <Size x="100" y="25"/>
+                <Anchors>
+                    <Anchor point="CENTER" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        -- 버튼 클릭 시 Core.lua에 정의된 함수 호출
+                        MyCoolAddon.MyCoolAddonFrameButton_OnClick(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                -- 프레임을 마우스로 드래그하여 이동할 수 있게 설정
+                self:RegisterForDrag("LeftButton");
+            </OnLoad>
+            <OnDragStart>
+                self:StartMoving();
+            </OnDragStart>
+            <OnDragStop>
+                self:StopMovingOrSizing();
+            </OnDragStop>
+        </Scripts>
+    </Frame>
+</Ui>
